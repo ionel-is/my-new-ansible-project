@@ -5,28 +5,7 @@
     https_port: 4443
     html_welcome_msg: "Hello from Ansible"
   tasks:
-
-   - name: ensure apache is at the latest version
-     apt:
-       name: apache2
-       state: latest
-
-   - name: write the apache2 ports.conf file
-     template:
-       src: templates/ports.conf.j2
-       dest: /etc/apache2/ports.conf
-     notify:
-      - restart apache2
-
-   - name: write the apache2 index.html file
-     template:
-       src: templates/index.html.j2
-       dest: /var/www/html/index.html
-     notify:
-      - restart apache2
+  - include_tasks: tasks/apache2_install.yml
 
   handlers:
-   - name: restart apache2
-     service:
-       name: apache2
-       state: restarted
+  - include_tasks: handlers/main.yml
