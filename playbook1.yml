@@ -4,8 +4,13 @@
     http_port: 8000
     https_port: 4443
     html_welcome_msg: "Hello from Ansible"
-  tasks:
-  - include_tasks: tasks/apache2_install.yml
+  roles:
+    - common
+    - apache2
 
-  handlers:
-  - include_tasks: handlers/main.yml
+
+- hosts: proxy
+  become: yes
+  roles:
+    - common
+    - nginx
