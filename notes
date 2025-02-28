@@ -1,2 +1,8 @@
 
 git clone https://github.com/bradmorg/ansible-labs.git
+
+ansible webstack -i hosts -m command -a date
+
+ansible all -i hosts -m command -a 'sudo apt-get -y install python3-simplejson'
+
+v.customize ["modifyvm", :id, "--cpus", 1] # set 1 cpu per vm to make sure they don't hang
