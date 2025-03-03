@@ -1,3 +1,4 @@
+---
 - name: Debug hostvars
   hosts: all
   gather_facts: yes

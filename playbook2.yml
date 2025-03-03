@@ -1,3 +1,4 @@
+---
 - hosts: webstack
   become: yes
   tasks:
