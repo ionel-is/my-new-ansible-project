@@ -1,0 +1,7 @@
+- name: Debug hostvars
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Show all hostvars
+      debug:
+        var: hostvars

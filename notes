@@ -9,3 +9,6 @@ v.customize ["modifyvm", :id, "--cpus", 1] # set 1 cpu per vm to make sure they 
 
 include_tasks # include was deprecated from ansible since 2023
 
+I had to use import_task instead of include_task in order to make the rolse or tags to work in this new folder structure.
+
+{{ ansible_facts['nodename'] }} fails when you run the playbook with a tag. Facts don't get by default generated as expected.
