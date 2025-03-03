@@ -2,22 +2,30 @@
   apt:
     name: apache2
     state: latest
+  tags:
+    - installation
 
 - name: write the apache2 ports.conf file
   template:
     src: templates/ports.conf.j2
     dest: /etc/apache2/ports.conf
   notify:
-  - restart apache2
+    - restart apache2
+  tags: 
+    - configuration
 
 - name: write the apache2 index.html file
   template:
     src: templates/index.html.j2
     dest: /var/www/html/index.html
   notify:
-  - restart apache2
+    - restart apache2
+  tags:
+    - configuration
 
 - name: ensure apache2 is running
   service:
     name: apache2
     state: started
+  tags:
+    - always

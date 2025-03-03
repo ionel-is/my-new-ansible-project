@@ -2,3 +2,5 @@
   apt:
     name: nginx
     state: present
+  tags: 
+    - installation
