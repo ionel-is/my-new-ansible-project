@@ -1,7 +1,7 @@
 <html>
 
 <h1>{{ html_welcome_msg }}</h1>
-<p> You are connected to webserver {{ ansible_facts['nodename'] }} </p>
+<p> You are connected to webserver {{ ansible_facts['nodename'] }} on the environment {{ myenvironment }}</p>
 <p> The server is running on {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }} </p>
 
 </html>
