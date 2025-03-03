@@ -7,6 +7,8 @@
   roles:
     - common
     - apache2
+  tags:
+    - web
 
 
 - hosts: proxy
@@ -14,3 +16,5 @@
   roles:
     - common
     - nginx
+  tags:
+    - proxy
