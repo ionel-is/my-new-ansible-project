@@ -18,3 +18,6 @@ ansible-playbook -i inventories/dev -K playbook1.yml --syntax-check # for syntax
 
 python3-mysql.connector,python3-pymysql # for mysql connection updated in 2025
 
+#fix DB connection with python3
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_new_password';
+FLUSH PRIVILEGES;
