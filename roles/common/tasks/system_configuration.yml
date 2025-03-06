@@ -1,4 +1,6 @@
 ---
 - name: "copy hosts file"
-  template: src=hosts_file.j2 dest=/etc/hosts
+  template: 
+    src: hosts_file
+    dest: /etc/hosts
   tags: always

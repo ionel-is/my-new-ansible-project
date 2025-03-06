@@ -1,0 +1,18 @@
+---
+- name: Ensure mysql-server is installed with the latest version
+  apt:
+    name: mysql-server
+    state: latest
+    update_cache: yes
+  tags: installation
+
+- name: Install python module  and interpreter
+  apt:
+    name: python3-mysql.connector,python3-pymysql
+  tags: setup
+
+- name: Ensure mysql-server is running
+  service:
+    name: mysql
+    state: started
+  tags: always

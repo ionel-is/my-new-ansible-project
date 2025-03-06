@@ -20,5 +20,6 @@
   become: yes
   roles:
     - common
+    - mysql
   tags:
-    - db
+    - database
