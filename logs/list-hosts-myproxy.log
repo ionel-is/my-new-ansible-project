@@ -1,0 +1,18 @@
+
+playbook: playbook1.yml
+
+  play #1 (webservers): webservers	TAGS: [web]
+    pattern: ['webservers']
+    hosts (2):
+      web01
+      web02
+
+  play #2 (myproxy): myproxy	TAGS: []
+    pattern: ['myproxy']
+    hosts (1):
+      loadbalancer
+
+  play #3 (database): database	TAGS: [database]
+    pattern: ['database']
+    hosts (1):
+      db01

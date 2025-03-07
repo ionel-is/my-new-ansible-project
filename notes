@@ -21,3 +21,9 @@ python3-mysql.connector,python3-pymysql # for mysql connection updated in 2025
 #fix DB connection with python3 using mysql_native_password instead of auth_socket
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_new_password';
 FLUSH PRIVILEGES;
+
+
+# debug and check commands
+ansible-playbook -i inventories/dev playbook1.yml --list-tags
+ansible-playbook -i inventories/dev playbook1.yml --list-tasks 
+ansible-playbook -i inventories/dev playbook1.yml --list-hosts

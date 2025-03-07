@@ -1,0 +1,31 @@
+
+playbook: playbook1.yml
+
+  play #1 (webservers): webservers	TAGS: [web]
+    tasks:
+      common : install common packages	TAGS: [installation, web]
+      common : copy hosts file	TAGS: [always, web]
+      apache2 : ensure apache is at the latest version	TAGS: [installation, web]
+      apache2 : write the apache2 ports.conf file	TAGS: [configuration, web]
+      apache2 : write the apache2 index.html file	TAGS: [configuration, web]
+      apache2 : ensure apache2 is running	TAGS: [always, web]
+
+  play #2 (myproxy): myproxy	TAGS: []
+    tasks:
+      common : install common packages	TAGS: [installation]
+      common : copy hosts file	TAGS: [always]
+      nginx : Install nginx packages	TAGS: [installation]
+      nginx : Deploy nginx configuratuin file	TAGS: [configuration]
+      nginx : Remove default config	TAGS: [configuration]
+
+  play #3 (database): database	TAGS: [database]
+    tasks:
+      common : install common packages	TAGS: [database, installation]
+      common : copy hosts file	TAGS: [always, database]
+      mysql : Ensure mysql-server is installed with the latest version	TAGS: [database, installation]
+      mysql : Install python module  and interpreter	TAGS: [database, setup]
+      mysql : Ensure mysql-server is running	TAGS: [always, database]
+      mysql : Create my.cnf configuration file	TAGS: [database]
+      mysql : Set MySQL root password	TAGS: [database]
+      mysql : Create mysql database with name 'first_db'	TAGS: [database, mysqldb]
+      mysql : Create mysql user with name 'john' and password 'password' with all privileges	TAGS: [database, mysqldb]

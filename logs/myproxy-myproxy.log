@@ -1,0 +1,29 @@
+
+PLAY [webservers] **************************************************************
+skipping: no hosts matched
+
+PLAY [myproxy] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [loadbalancer]
+
+TASK [common : install common packages] ****************************************
+ok: [loadbalancer] => (item=pydf)
+ok: [loadbalancer] => (item=tree)
+ok: [loadbalancer] => (item=open-vm-tools)
+ok: [loadbalancer] => (item=htop)
+ok: [loadbalancer] => (item=vim)
+
+TASK [common : copy hosts file] ************************************************
+ok: [loadbalancer]
+
+TASK [nginx : Install nginx packages] ******************************************
+ok: [loadbalancer]
+
+TASK [nginx : Deploy nginx configuratuin file] *********************************
+An exception occurred during task execution. To see the full traceback, use -vvv. The error was: ansible.errors.AnsibleUndefinedVariable: 'dict object' has no attribute 'nodename'. 'dict object' has no attribute 'nodename'
+fatal: [loadbalancer]: FAILED! => {"changed": false, "msg": "AnsibleUndefinedVariable: 'dict object' has no attribute 'nodename'. 'dict object' has no attribute 'nodename'"}
+
+PLAY RECAP *********************************************************************
+loadbalancer               : ok=4    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
