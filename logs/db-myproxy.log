@@ -1,0 +1,46 @@
+
+PLAY [webservers] **************************************************************
+skipping: no hosts matched
+
+PLAY [myproxy] *****************************************************************
+skipping: no hosts matched
+
+PLAY [database] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [db01]
+
+TASK [common : install common packages] ****************************************
+ok: [db01] => (item=pydf)
+ok: [db01] => (item=tree)
+ok: [db01] => (item=open-vm-tools)
+ok: [db01] => (item=htop)
+ok: [db01] => (item=vim)
+
+TASK [common : copy hosts file] ************************************************
+ok: [db01]
+
+TASK [mysql : Ensure mysql-server is installed with the latest version] ********
+ok: [db01]
+
+TASK [mysql : Install python module  and interpreter] **************************
+ok: [db01]
+
+TASK [mysql : Ensure mysql-server is running] **********************************
+ok: [db01]
+
+TASK [mysql : Create my.cnf configuration file] ********************************
+ok: [db01]
+
+TASK [mysql : Set MySQL root password] *****************************************
+ok: [db01]
+
+TASK [mysql : Create mysql database with name 'first_db'] **********************
+ok: [db01]
+
+TASK [mysql : Create mysql user with name 'john' and password 'password' with all privileges] ***
+ok: [db01]
+
+PLAY RECAP *********************************************************************
+db01                       : ok=10   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
