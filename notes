@@ -27,3 +27,4 @@ FLUSH PRIVILEGES;
 ansible-playbook -i inventories/dev playbook1.yml --list-tags
 ansible-playbook -i inventories/dev playbook1.yml --list-tasks 
 ansible-playbook -i inventories/dev playbook1.yml --list-hosts
+ansible all -i inventories/dev -m gather_facts --limit loadbalancer

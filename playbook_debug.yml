@@ -1,8 +1,19 @@
 ---
 - name: Debug hostvars
-  hosts: all
+  hosts: loadbalancer
   gather_facts: yes
   tasks:
     - name: Show all hostvars
       debug:
         var: hostvars
+
+    - name: Save Ansible facts to a file
+      copy:
+        content: "{{ ansible_facts | to_nice_json }}"
+        dest: "/tmp/debug_facts.json"
+
+    - name: Fetch the file to local machine
+      fetch:
+        src: "/tmp/debug_facts.json"
+        dest: "logs/debug_facts.json"
+        flat: yes
