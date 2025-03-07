@@ -1,7 +1,7 @@
 [control]
 ansible-control
 
-[proxy] 
+[myproxy] 
 loadbalancer
 
 [webservers] 
@@ -12,7 +12,7 @@ web02
 db01
 
 [webstack:children] 
-proxy 
+myproxy 
 webservers 
 database
 
