@@ -13,8 +13,8 @@
   roles:
     - common
     - nginx
-  # tags:
-  #   - proxy
+  tags:
+    - proxy
 
 - hosts: database
   become: yes
