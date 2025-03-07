@@ -1,0 +1,105 @@
+
+PLAY [webservers] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [web02]
+ok: [web01]
+
+TASK [common : install common packages] ****************************************
+ok: [web02] => (item=pydf)
+ok: [web01] => (item=pydf)
+ok: [web02] => (item=tree)
+ok: [web01] => (item=tree)
+ok: [web01] => (item=open-vm-tools)
+ok: [web02] => (item=open-vm-tools)
+ok: [web01] => (item=htop)
+ok: [web02] => (item=htop)
+ok: [web01] => (item=vim)
+ok: [web02] => (item=vim)
+
+TASK [common : copy hosts file] ************************************************
+ok: [web02]
+ok: [web01]
+
+TASK [apache2 : ensure apache is at the latest version] ************************
+ok: [web01]
+ok: [web02]
+
+TASK [apache2 : write the apache2 ports.conf file] *****************************
+ok: [web01]
+ok: [web02]
+
+TASK [apache2 : write the apache2 index.html file] *****************************
+ok: [web01]
+ok: [web02]
+
+TASK [apache2 : ensure apache2 is running] *************************************
+ok: [web01]
+ok: [web02]
+
+PLAY [proxy] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [loadbalancer]
+
+TASK [common : install common packages] ****************************************
+ok: [loadbalancer] => (item=pydf)
+ok: [loadbalancer] => (item=tree)
+ok: [loadbalancer] => (item=open-vm-tools)
+ok: [loadbalancer] => (item=htop)
+ok: [loadbalancer] => (item=vim)
+
+TASK [common : copy hosts file] ************************************************
+ok: [loadbalancer]
+
+TASK [nginx : Install nginx packages] ******************************************
+ok: [loadbalancer]
+
+TASK [nginx : Deploy nginx configuratoin file] *********************************
+ok: [loadbalancer]
+
+TASK [nginx : Remove default config] *******************************************
+ok: [loadbalancer]
+
+PLAY [database] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [db01]
+
+TASK [common : install common packages] ****************************************
+ok: [db01] => (item=pydf)
+ok: [db01] => (item=tree)
+ok: [db01] => (item=open-vm-tools)
+ok: [db01] => (item=htop)
+ok: [db01] => (item=vim)
+
+TASK [common : copy hosts file] ************************************************
+ok: [db01]
+
+TASK [mysql : Ensure mysql-server is installed with the latest version] ********
+ok: [db01]
+
+TASK [mysql : Install python module  and interpreter] **************************
+ok: [db01]
+
+TASK [mysql : Ensure mysql-server is running] **********************************
+ok: [db01]
+
+TASK [mysql : Create my.cnf configuration file] ********************************
+ok: [db01]
+
+TASK [mysql : Set MySQL root password] *****************************************
+ok: [db01]
+
+TASK [mysql : Create mysql database with name 'first_db'] **********************
+ok: [db01]
+
+TASK [mysql : Create mysql user with name 'john' and password 'password' with all privileges] ***
+ok: [db01]
+
+PLAY RECAP *********************************************************************
+db01                       : ok=10   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+loadbalancer               : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+web01                      : ok=7    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+web02                      : ok=7    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

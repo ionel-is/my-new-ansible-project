@@ -1,0 +1,34 @@
+
+# tutorial repository
+git clone https://github.com/bradmorg/ansible-labs.git
+
+# ad-hoc ansible command to show the date
+ansible webstack -i hosts -m command -a date
+
+# ad-hoc ansible command to install python3-simplejson
+ansible all -i hosts -m command -a 'sudo apt-get -y install python3-simplejson'
+
+# set 1 cpu per vm to make sure they don't hang
+v.customize ["modifyvm", :id, "--cpus", 1] 
+
+# include was deprecated from ansible since 2023
+include_tasks 
+
+# I had to use import_task instead of include_task in order to make the rolse or tags to work in this new folder structure.
+
+
+{{ ansible_facts['nodename'] }} fails when you run the playbook with a tag. Facts don't get by default generated as expected.
+
+# for syntax check
+ansible-playbook -i inventories/dev playbook1.yml --syntax-check 
+
+# for mysql connection updated in 2025
+python3-mysql.connector,python3-pymysql 
+
+#fix DB connection with python3 using mysql_native_password instead of auth_socket
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_new_password';
+FLUSH PRIVILEGES;
+
+
+# debug and check commands
+ansible-playbook -i inventories/dev playbook1.yml  --list-tags
