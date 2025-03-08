@@ -1,6 +1,7 @@
 ---
 - hosts: webservers
   become: yes
+  gather_facts: yes
   roles:
     - common
     - apache2
@@ -10,6 +11,7 @@
 
 - hosts: myproxy
   become: yes
+  gather_facts: yes
   roles:
     - common
     - nginx

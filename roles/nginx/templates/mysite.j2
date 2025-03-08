@@ -1,9 +1,13 @@
-# This configuration is for {{ ansible_facts['nodename'] }}
+# This configuration is for the 222222 node {{ ansible_facts['nodename'] }}
+# This configuration is for the 222444 node {{ ansible_facts.get('nodename') }}
 
     upstream webservers {
         {% for host in groups['webservers'] %}
             server {{ hostvars[host]['ansible_facts']['nodename'] }}:{{ http_port }};
         {% endfor %}
+        {# server {{ hostvars['loadbalancer']['ansible_facts']['nodename'] }}:{{ http_port }} #}
+        {# server {{ hostvars['web01']['ansible_facts']['nodename'] }}:{{ http_port }} #}
+        {# server {{ hostvars['web02']['ansible_facts']['nodename'] }}:{{ http_port }} #}
     }
 
     server {

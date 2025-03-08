@@ -28,3 +28,17 @@ ansible-playbook -i inventories/dev playbook1.yml --list-tags
 ansible-playbook -i inventories/dev playbook1.yml --list-tasks 
 ansible-playbook -i inventories/dev playbook1.yml --list-hosts
 ansible all -i inventories/dev -m gather_facts --limit loadbalancer
+ansible myproxy -i inventories/dev -m setup >> logs/new_facts.json
+ansible all -i inventories/dev -m setup -a 'filter=ansible_facts.nodename' 
+ansible all -i inventories/dev -m gather_facts --limit webstack | grep ansible_nodename
+ansible all -i inventories/dev -m setup | grep nodename
+ansible loadbalancer -i inventories/dev -m setup | grep nodename
+
+
+
+systemctl show -p ActiveEnterTimestamp nginx
+- some sevices will not restart if there is no change in the configuration file
+
+Running a play with --tag proxy will end up in error at nginx config because it can't acces webservers facts. Workaround: run the proxy and web together
+
+

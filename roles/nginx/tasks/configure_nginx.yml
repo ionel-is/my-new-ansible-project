@@ -1,9 +1,10 @@
 ---
-- name: Deploy nginx configuratuin file
+- name: Deploy nginx configuratoin file
   template:
     src: mysite.j2
     dest: /etc/nginx/sites-enabled/mysite
-  notify: restart nginx
+  notify: 
+    - restart nginx
   tags: 
     - configuration
 

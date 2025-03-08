@@ -3,9 +3,9 @@
   hosts: loadbalancer
   gather_facts: yes
   tasks:
-    - name: Show all hostvars
+    - name: Show ansible_facts for myproxy
       debug:
-        var: hostvars
+        var: hostvars['myproxy']['ansible_facts']['nodename']
 
     - name: Save Ansible facts to a file
       copy:
@@ -15,5 +15,5 @@
     - name: Fetch the file to local machine
       fetch:
         src: "/tmp/debug_facts.json"
-        dest: "logs/debug_facts.json"
+        dest: "logs/debug_facts_nodename.json"
         flat: yes
