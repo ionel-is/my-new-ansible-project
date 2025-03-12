@@ -1,0 +1,7 @@
+---
+# makre sure that facts are gathered from all web hosts in order for the nginx configuration to be generated correctly
+- name: Gather facts for web hosts
+  ansible.builtin.setup:
+  delegate_to: "{{ item }}"
+  delegate_facts: true
+  loop: "{{ groups['webservers'] }}"

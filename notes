@@ -1,51 +1,38 @@
-
+# sursa de inspiratie
 git clone https://github.com/bradmorg/ansible-labs.git
 
 # Setup Vagrant and connect to ansible-control server
-
- vagrant up
- vagrant ssh ansible-control
+vagrant up
+vagrant ssh ansible-control
 
 # Copy hosts file on ansible-control
-
 cp /vagrant/hosts_file /etc/hosts 
 
 # Install Ansible
-
- sudo apt-get install ansible
+sudo apt-get install ansible
 
 # Create a SSH key and copy to all servers
-
 ssh-keygen
 ssh-copy-id localhost
 ssh-copy-id web01 && ssh-copy-id web02 && ssh-copy-id loadbalancer && ssh-copy-id db01
 
-# Run a ad-hoc command to the webstack group
-
+# ad-hoc commands
 ansible webstack -i hosts -m command -a hostname
-
-# Install python-simplejson
-
-ansible all -i hosts -m command -a 'sudo apt-get -y install python-simplejson'
-
-
-
-
-
 ansible webstack -i hosts -m command -a date
 
-ansible all -i hosts -m command -a 'sudo apt-get -y install python3-simplejson'
+# Install python-simplejson on all servers
+ansible all -i hosts -m command -a 'sudo apt-get -y install python-simplejson'
+ansible all -i hosts -m command -a 'sudo apt-get -y install python3-simplejson' # for python3
+
+
 
 v.customize ["modifyvm", :id, "--cpus", 1] # set 1 cpu per vm to make sure they don't hang
 
 include_tasks # include was deprecated from ansible since 2023
-
-I had to use import_task instead of include_task in order to make the rolse or tags to work in this new folder structure.
-
-{{ ansible_facts['nodename'] }} fails when you run the playbook with a tag. Facts don't get by default generated as expected.
+import_tasks # I had to use import_task instead of include_task in order to make the rolse or tags to work in this new folder structure.
 
 
-ansible-playbook -i inventories/dev -K playbook1.yml --syntax-check # for syntax check
+
 
 python3-mysql.connector,python3-pymysql # for mysql connection updated in 2025
 
@@ -58,6 +45,7 @@ FLUSH PRIVILEGES;
 ansible-playbook -i inventories/dev playbook1.yml --list-tags
 ansible-playbook -i inventories/dev playbook1.yml --list-tasks 
 ansible-playbook -i inventories/dev playbook1.yml --list-hosts
+ansible-playbook -i inventories/dev playbook1.yml --syntax-check # for syntax check
 ansible all -i inventories/dev -m gather_facts --limit loadbalancer
 ansible myproxy -i inventories/dev -m setup >> logs/new_facts.json
 ansible all -i inventories/dev -m setup -a 'filter=ansible_facts.nodename' 
@@ -67,9 +55,17 @@ ansible loadbalancer -i inventories/dev -m setup | grep nodename
 
 
 
-systemctl show -p ActiveEnterTimestamp nginx
-- some sevices will not restart if there is no change in the configuration file
-
-Running a play with --tag proxy will end up in error at nginx config because it can't acces webservers facts. Workaround: run the proxy and web together
+systemctl show -p ActiveEnterTimestamp nginx # linux cmd check when a service was started
+# some sevices will not restart if there is no change in the configuration file
 
 
+
+
+# {{ ansible_facts['nodename'] }} fails when you run the playbook with a tag. Facts don't get by default generated as expected.
+# Running a play with --tag proxy will end up in error at nginx config because it can't acces webservers facts. Workaround: run the proxy and web together
+# To solve the playbook problem to run only nginx tasks, you need to enforce the facts gathering by addig new task in nginx role
+- name: Gather facts for web hosts
+  ansible.builtin.setup:
+  delegate_to: "{{ item }}"
+  delegate_facts: true
+  loop: "{{ groups['webservers'] }}"

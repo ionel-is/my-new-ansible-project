@@ -9,14 +9,11 @@
     - web
 
 #inject gather facts to force the playbook to gather facts
-- hosts: all
-  gather_facts: true
-  become: true
-  # tasks : 
-  #   - name: gather facts
-  #     command: date
-  tags:
-    - always
+# - hosts: all
+#   gather_facts: true
+#   become: true
+#   tags:
+#     - always
 
 - hosts: myproxy
   become: yes
